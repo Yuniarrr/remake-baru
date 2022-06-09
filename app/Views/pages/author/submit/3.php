@@ -1,23 +1,16 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-            <div id="breadcrumb">
-               <a href="<?= base_url(); ?>/index">Home</a> &gt;
-               <a href="<?= base_url(); ?>/user" class="hierarchyLink">User</a> &gt;
-               <a href="<?= base_url(); ?>/author" class="hierarchyLink">Author</a> &gt;
-               <a href="<?= base_url(); ?>/author" class="hierarchyLink">Submissions</a> &gt;
-               <a href="<?= base_url(); ?>/author/submit/3/<?= $article['article_id']; ?>" class="current">New Submission</a>
-            </div>
-            <h2>Step 3. Entering the Submission's Metadata</h2>
-            <div id="content">
-               <ul class="steplist">
-                  <li id="step1" ><a href="<?= base_url(); ?>/author/submit/1/<?= $article['article_id']; ?>">1. Start</a></li>
-                  <li id="step2" ><a href="<?= base_url(); ?>/author/submit/2/<?= $article['article_id']; ?>">2. Upload Submission</a></li>
-                  <li id="step3"  class="current">3. Enter Metadata</li>
-                  <li id="step4" >4. Upload Supplementary Files</li>
-                  <li id="step5" >5. Confirmation</li>
-               </ul>
-               <div class="separator"></div>
+          
+<div class="wrapper">
+<div class="page-header">
+        <h2 class="text-center">Step 2. Uploading the Submission</h2>
+        <hr>
+
+
+        <div class="container shape-container d-flex align-items-center py-lg">
+          <div class="col px-0">
+            <div class="row align-items-center d-flex justify-content-cente">
                <form name="addArticle" method="post" action="<?= base_url(); ?>/author/saveSubmit/3/<?= $article['article_id']; ?>">
                   <input type="hidden" name="article[articleId]" value="<?php if(isset($article['article_id'])) echo $article['article_id']; ?>" />
                   <div id="authors">
@@ -749,9 +742,12 @@
                   </table>
                   <div class="separator"></div>
                </div>
-               <p><input type="submit" name="submitArticle" value="Save and continue" class="button defaultButton" /> <input type="button" value="Cancel" class="button" onclick="confirmAction('/author', 'You can complete this submission at a later date by selecting Active Submissions from the Author home.')" /></p>
+               <p><input type="submit" name="submitArticle" value="Save and continue" class="btn btn-primary btn-sm mr-3" /> <input type="button" value="Cancel" class="btn btn-primary btn-sm mr-3" onclick="confirmAction('/author', 'You can complete this submission at a later date by selecting Active Submissions from the Author home.')" /></p>
                <p><span class="formRequired">* Denotes required field</span></p>
             </form>
-         </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 <?= $this->endSection(); ?>

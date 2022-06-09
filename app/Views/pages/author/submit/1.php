@@ -2,38 +2,21 @@
 
 <?= $this->section('content'); ?>
 
-<div id="breadcrumb">
-	<a href="<?= base_url(); ?>/index">Home</a> &gt;
-	<a href="<?= base_url(); ?>/user" class="hierarchyLink">User</a> &gt;
-	<a href="<?= base_url(); ?>/author" class="hierarchyLink">Author</a> &gt;
-	<a href="<?= base_url(); ?>/author" class="hierarchyLink">Submissions</a> &gt;
-	<a href="<?= base_url(); ?>/author/submit/1" class="current">New Submission</a>
-</div>
-<h2>Step 1. Starting the Submission</h2>
+
+<div class="wrapper">
+    <div class="section section-hero section-shaped">
+      <div class="page-header">
+        <h2 class="text-center">Step 1. Starting the Submission </h2>
+        <hr>
 
 
-<div id="content">
+        <div class="container shape-container d-flex align-items-center py-lg">
+          <div class="col px-0">
+            <div class="row align-items-center d-flex justify-content-center ">
 
 
 
-<ul class="steplist">
-<li id="step1"  class="current">1. Start</li>
-
-<li id="step2" >2. Upload Submission</li>
-
-<li id="step3" >3. Enter Metadata</li>
-
-<li id="step4" >4. Upload Supplementary Files</li>
-
-<li id="step5" >5. Confirmation</li>
-</ul>
-
-	
-<p>Encountering difficulties? Contact <a href="mailto:"></a> for assistance.</p>
-
-<div class="separator"></div>
-
-<form id="submit" method="post" action="<?= base_url()?>/author/saveSubmit/1<?= isset($article["article_id"]) ? '/'.$article["article_id"] : '' ?>" onsubmit="return checkSubmissionChecklist()">
+            <form id="submit" method="post" action="<?= base_url()?>/author/saveSubmit/1<?= isset($article["article_id"]) ? '/'.$article["article_id"] : '' ?>" onsubmit="return checkSubmissionChecklist()">
 	<input type="hidden" name="sectionId" value="0" />
 	<input type="hidden" name="sectionId" value="84" />
 	<input type="hidden" name="locale" value="en_US" />
@@ -101,23 +84,32 @@ The names and email addresses entered in this journal site will be used exclusiv
 <h3>Comments for the Editor</h3>
 
 <table width="100%" class="data">
-<tr valign="top">
+<tr valign="top"> 
 	<td width="20%" class="label">
 <label for="commentsToEditor" >
 	Please Enter 5 Potential Reviewers </label>
 </td>
-	<td width="80%" class="value"><textarea name="commentsToEditor" id="commentsToEditor" rows="3" cols="40" class="textArea"><?= isset($comment["author_to_editor"]) ? $comment["author_to_editor"] : '' ?></textarea></td>
+	<td width="80%" class="value">
+    <textarea name="commentsToEditor" id="commentsToEditor" rows="3" cols="40" class="textArea"><?= isset($comment["author_to_editor"]) ? $comment["author_to_editor"] : '' ?></textarea></td>
 </tr>
 </table>
 </div>
 <div class="separator"></div>
 
-<p><input type="submit" value="Save and continue" class="button defaultButton" /> <input type="button" value="Cancel" class="button" onclick="document.location.href='/author'" /></p>
+<p>
+  <input type="submit" value="Save and continue" class="button btn btn-primary btn-sm" />
+<input type="button" value="Cancel" class="button btn btn-primary btn-sm" onclick="document.location.href='/author'" />
+</p>
 
 <p><span class="formRequired">* Denotes required field</span></p>
 
 </form>
 
 
-</div><!-- content -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
 <?= $this->endSection(); ?>

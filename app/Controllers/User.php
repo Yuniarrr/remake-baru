@@ -150,6 +150,6 @@ class User extends BaseController
         ]);
 
         // rediirect ke view login
-        return redirect()->to(base_url('/'));
+        return redirect()->to(base_url('/Pages/login'));
     }
 }

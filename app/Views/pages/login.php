@@ -1,41 +1,73 @@
-
 <?= $this->extend('layout/template'); ?>
-
 <?= $this->section('content'); ?>
-<h2><?= $contentTitle; ?></h2>
-<div id="content">
-	<form id="signinForm" method="post" action="<?= base_url(); ?>/login/signIn">
-<input type="hidden" name="source" value="" />
+<section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 bg-gradient-default">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="container pt-lg-7">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>
+                  <h4>Login</h4>
+                </small>
+              </div>
 
-	<table id="signinTable" class="data">
-	<tr>
-		<td class="label"><label for="loginUsername">Username</label></td>
-		<td class="value"><input type="text" id="loginUsername" name="username" value="" size="20" maxlength="32" class="textField" /></td>
-	</tr>
-	<tr>
-		<td class="label"><label for="loginPassword">Password</label></td>
-		<td class="value"><input type="password" id="loginPassword" name="password" value="" size="20" maxlength="32" class="textField" /></td>
-	</tr>
-		<tr valign="middle">
-		<td></td>
-		<td class="value"><input type="checkbox" id="loginRemember" name="remember" value="1" /> <label for="loginRemember">Remember my username and password</label></td>
-	</tr>
-		<tr>
-		<td></td>
-		<td><input type="submit" value="Login" class="button" /></td>
-	</tr>
-	</table>
+              <?php if (!empty(session()->getFlashdata('error'))) : ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <?php echo session()->getFlashdata('error'); ?>
+                </div>
+            <?php endif; ?>
 
-	<p>
-				&#187; <a href="<?= base_url(); ?>/login/lostPassword">Forgot your password?</a>
-	</p>
-<script type="text/javascript">
-<!--
-	document.getElementById('loginUsername').focus();
-// -->
-</script>
-</form>
+              <form role="form" action="<?= base_url(); ?>/User/login" method="post">
+              <?= csrf_field(); ?>
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Username" type="text" name="username" autofocus>
+                  </div>
+                </div>
+                <div class="form-group focused">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Password" type="password" name="password">
+                  </div>
+                </div>
+                <div class="custom-control custom-control-alternative custom-checkbox">
+                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                  <label class="custom-control-label" for=" customCheckLogin"><span>Remember me</span></label>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn btn-primary my-4">Sign in</button>
+                </div>
+              </form>
 
-
-</div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-6">
+              <a href="#" class="text-light"><small>Forgot password?</small></a>
+            </div>
+            <div class="col-6 text-right">
+              <a href="<?= base_url(); ?>/Pages/register" class="text-light"><small>Create new account</small></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
 <?= $this->endSection(); ?>

@@ -1,22 +1,18 @@
 <?= $this->extend('layout/template'); ?>
 
 <?= $this->section('content'); ?>
-            <div id="breadcrumb">
-               <a href="<?= base_url(); ?>/index">Home</a> &gt;
-               <a href="<?= base_url(); ?>/user" class="hierarchyLink">User</a> &gt;
-               <a href="<?= base_url(); ?>/author" class="hierarchyLink">Author</a> &gt;
-               <a href="<?= base_url(); ?>/author" class="hierarchyLink">Submissions</a> &gt;
-               <a href="<?= base_url(); ?>/author/submit/2?articleId=12525" class="current">New Submission</a>
-            </div>
-            <h2>Step 2. Uploading the Submission</h2>
-            <div id="content">
-               <ul class="steplist">
-                  <li id="step1" ><a href="<?= base_url(); ?>/author/submit/1<?= '/' . $article['article_id']; ?>">1. Start</a></li>
-                  <li id="step2"  class="current">2. Upload Submission</li>
-                  <li id="step3" >3. Enter Metadata</li>
-                  <li id="step4" >4. Upload Supplementary Files</li>
-                  <li id="step5" >5. Confirmation</li>
-               </ul>
+<div class="wrapper">
+    <div class="section section-hero section-shaped">
+      <div class="page-header">
+        <h2 class="text-center">Step 2. Uploading the Submission</h2>
+        <hr>
+
+        <div class="container shape-container d-flex align-items-center py-lg">
+          <div class="col px-0">
+            <div class="row align-items-center d-flex justify-content-cente">
+
+
+
                <form method="post" action="<?= base_url(); ?>/author/saveSubmit/2<?= '/' . $article['article_id']; ?>" enctype="multipart/form-data">
                   <input type="hidden" name="articleId" value="12536" />
                   <div id="uploadInstructions">
@@ -35,24 +31,24 @@
                   <!-- Ketika sudah upload -->
                   <div id="submissionFile">
                      <h3>Submission File</h3>
-                     <table class="data" width="100%">
-                        <tr valign="top">
-                           <td width="20%" class="label">File Name</td>
-                           <td width="80%" class="value"><a href="<?= base_url('') . '/donwload/author/' . $article['article_id']; ?>"><?= $fileinfo['file_name']; ?></a></td>
+                     <table>
+                        <tr>
+                          <td>Nama File : </td>
+                          <td><a href="<?= base_url('') . '/donwload/author/' . $article['article_id']; ?>"><?= $fileinfo['file_name']; ?></a></td>
                         </tr>
-                        <tr valign="top">
-                           <td width="20%" class="label">Original file name</td>
-                           <td width="80%" class="value"><?= $fileinfo['original_file_name']; ?></td>
+                        <tr>
+                          <td>Nama Asli : </td>
+                          <td><?= $fileinfo['original_file_name']; ?></td>
                         </tr>
-                        <tr valign="top">
-                           <td width="20%" class="label">File Size</td>
-                           <td width="80%" class="value"><?= $fileinfo['file_size'] ?>KB</td>
+                        <tr>
+                          <td>Ukuran : </td>
+                          <td><?= $fileinfo['file_size'] ?></td>
                         </tr>
-                        <tr valign="top">
-                           <td width="20%" class="label">Date uploaded</td>
-                           <td width="80%" class="value"><?= $fileinfo['date_uploaded'] ?></td>
+                        <tr>
+                          <td>Date Uploaded :</td>
+                          <td><?= $fileinfo['date_uploaded'] ?></td>
                         </tr>
-                     </table>
+                      </table>
                   </div>
                   <!-- Ketika sudah upload -->
                   <div id="addSubmissionFile">
@@ -89,15 +85,21 @@
                      <td width="70%" class="value">
                         <input type="file" class="uploadField" name="submissionFile" id="submissionFile" /> <input name="uploadSubmissionFile" type="submit" class="button" value="Upload" />
                            </td>
+
+                           
                   </tr>
                   </table>
                   </div>
                   <?php endif; ?>
                   <div class="separator"></div>
                   </form>
-                  <p><input type="submit" value="Save and continue" class="button defaultButton" onclick="window.location.href='<?= base_url('/author/submit/3/' . $article['article_id']); ?>'" /> <input type="button" value="Cancel" class="button" onclick="if (confirm('You can complete this submission at a later date by selecting Active Submissions from the Author home.')) window.location.href='<?= base_url('/author'); ?>';" /></p>
+                  <p><input type="submit" value="Save and continue" class="btn btn-primary btn-sm mr-3" onclick="window.location.href='<?= base_url('/author/submit/3/' . $article['article_id']); ?>'" /> <input type="button" value="Cancel" class="btn btn-primary btn-sm mr-3" onclick="if (confirm('You can complete this submission at a later date by selecting Active Submissions from the Author home.')) window.location.href='<?= base_url('/author'); ?>';" /></p>
                
-            </div>
+            
+                  </div>
+          </div>
+        </div>
+      </div>
             <?php
                if(isset($_GET['error'])) {
                   echo "
