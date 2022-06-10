@@ -45,7 +45,7 @@ class ArticlesModel extends Model
         return $this
             ->select()
             ->join('users', 'users.user_id=articles.submitter_id')
-            ->join('article_authors', 'article_authors.article_id=articles.article_id');
+            ->join('article_authors', 'article_authors.article_id = articles.article_id');
     }
 
     public function joinArticleAW()

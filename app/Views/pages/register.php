@@ -80,11 +80,11 @@
                       <input class="form-control" placeholder="Confirm Password" type="password" name="password_conf" required>
                     </div>
                   </div>
+                  <p>Role :</p>
                   <div class="form-group focused">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
+                    <div class="input-group ">
+                      
+                    
                       <!-- <input class="form-control" placeholder="Role" type="text" name="role" required> -->
                       <select class="navbar-nav" name="role">
                           <span class="nav-link dropdown-toggle" href="javascript:;" id="nav-inner-primary_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</span>
@@ -114,10 +114,7 @@
                   </div> -->
                   <div class="row my-4">
                     <div class="col-12">
-                      <div class="custom-control custom-control-alternative custom-checkbox">
-                        <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                        <label class="custom-control-label" for="customCheckRegister"><span>I agree with the <a href="#">Privacy Policy</a></span></label>
-                      </div>
+                      
                     </div>
                   </div>
                   <div class="text-center">
