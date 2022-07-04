@@ -45,14 +45,14 @@ class ArticlesModel extends Model
         return $this
             ->select()
             ->join('users', 'users.user_id=articles.submitter_id')
-            ->join('article_authors', 'article_authors.article_id = articles.article_id');
+            ->join('article_authors', 'article_authors.article_id=articles.article_id');
     }
 
     public function joinArticleAW()
     {
         return $this
             ->select()
-            ->join('article_authors', 'article_authors.article_id=articles.article_id')
+            ->join('article_authors', 'article_authors.article_id = articles.article_id')
             ->where('articles.status', 'Waiting Assignment');
     }
 
@@ -61,7 +61,8 @@ class ArticlesModel extends Model
         return $this
             ->select()
             ->join('article_authors', 'article_authors.article_id=articles.article_id')
-            ->where('articles.status', 'In Review');
+            // ->where('articles.status', 'In Review');
+            ->like('articles.status', 'In Review');
     }
 
     public function joinArticleIE()

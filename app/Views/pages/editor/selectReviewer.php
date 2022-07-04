@@ -13,10 +13,6 @@
                   <thead>
                     <tr class="text-black">
                       <th scope="col">Name</th>
-                      <th scope="col">Done</th>
-                      <th scope="col">Weeks</th>
-                      <th scope="col">Latest</th>
-                      <th scope="col">Active</th>
                       <th scope="col">Action</th>
                     </tr>
                     <?php foreach($reviewer as $r) : ?>
@@ -24,10 +20,6 @@
                         <td>
                           <?= $r['username']; ?>
                         </td>
-                        <td colspan="2"></td>
-                        <!-- <td></td> -->
-                        <td></td>
-                        <td></td>
                         <td>
                           <?php if(isset($assign_reviewer['reviewer_id'])) : ?>
                             Assigned

@@ -34,7 +34,7 @@
                   <tr valign="top">
                     <td class="label">Submission Editor</td>
                     <td class="value">
-                      <?= $author["first_name"] . " " . $author["last_name"]; ?> <a href="https://iptek.its.ac.id/index.php/itj/user/email?to%5B%5D=Baru%20Nanto%20%3Cbarunanto%40ppi.its.ac.id%3E&amp;redirectUrl=http%3A%2F%2Fiptek.its.ac.id%2Findex.php%2Fitj%2Freviewer%2Fsubmission%2F4596&amp;subject=test&amp;articleId=12536" class="icon"><img src="https://iptek.its.ac.id/lib/pkp/templates/images/icons/mail.gif" width="16" height="14" alt="Mail" /></a>
+                      <?= $author["first_name"] . " " . $author["last_name"]; ?> <a href="<?= base_url(); ?>/user/email?to%5B%5D=Baru%20Nanto%20%3Cbarunanto%40ppi.its.ac.id%3E&amp;redirectUrl=http%3A%2F%2Fiptek.its.ac.id%2Findex.php%2Fitj%2Freviewer%2Fsubmission%2F<?= $article['article_id']; ?>&amp;subject=test&amp;articleId=12536" class="icon"><img src="https://iptek.its.ac.id/lib/pkp/templates/images/icons/mail.gif" width="16" height="14" alt="Mail" /></a>
 					            <br />
                     </td>
                   </tr>
@@ -130,7 +130,9 @@
                             <td class="value">
                               <?php if (isset($reviewer_response)) : ?>
 								              	<?php if ($reviewer_response[0] == 1) : ?>
+                                  <?php if(isset($suppfile)) : ?>
 								              		<a href="" class="file"><?= $suppfile["file_name"]; ?></a>
+                                  <?php endif; ?>
 								              	<?php endif; ?>
 								              <?php else : ?>
 								              	None

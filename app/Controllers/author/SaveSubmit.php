@@ -84,31 +84,62 @@ class SaveSubmit extends BaseController
         break;
       case 3:
         $post = $this->request->getPost();
-        if (isset($post['submitArticle'])) {
-          $author = $post['authors'][0];
+        if (isset($post['addAuthor'])) {
+          $authors = $post['authors'];
 
-          $data['authors'] = [
-            'first_name' => $author['firstName'],
-            'middle_name' => $author['middleName'],
-            'last_name' => $author['lastName'],
-            'url' => $author['url'],
-            'email' => $author['email'],
-            'affiliation' => $author['affiliation'],
-            'country' => $author['country'],
-            'bio' => $author['biography'],
-            'article_id' => $articleID
-          ];
+          foreach ($authors as $author) {
+            $data['authors'] = [
+              'first_name' => $author['firstName'],
+              'middle_name' => $author['middleName'],
+              'last_name' => $author['lastName'],
+              'url' => $author['url'],
+              'email' => $author['email'],
+              'affiliation' => $author['affiliation'],
+              'country' => $author['country'],
+              'bio' => $author['biography'],
+              'article_id' => $articleID
+            ];
 
-          // Jika belum submit pertama kali
-          if (strlen($author['authorId']) == 0) {
-            // Submit Author First
-            $this->articleAuthorsModel->insert($data['authors']);
+            // Jika belum submit pertama kali
+            if (strlen($author['authorId']) == 0) {
+              // Submit Author First
+              $this->articleAuthorsModel->insert($data['authors']);
 
-            // Lalu, ambil author_id
-            $authorID = $this->articleAuthorsModel->getInsertID();
-          } else {
-            $this->articleAuthorsModel->update($author['authorId'], $data['authors']);
-            $authorID = $author['authorId'];
+              // Lalu, ambil author_id
+              $authorID = $this->articleAuthorsModel->getInsertID();
+            } else {
+              $this->articleAuthorsModel->update($author['authorId'], $data['authors']);
+              $authorID = $author['authorId'];
+            }
+          }
+          return redirect()->back()->withInput();
+        } else if (isset($post['submitArticle'])) {
+          $authors = $post['authors'];
+
+          foreach ($authors as $author) {
+            $data['authors'] = [
+              'first_name' => $author['firstName'],
+              'middle_name' => $author['middleName'],
+              'last_name' => $author['lastName'],
+              'url' => $author['url'],
+              'email' => $author['email'],
+              'affiliation' => $author['affiliation'],
+              'country' => $author['country'],
+              'bio' => $author['biography'],
+              'article_id' => $articleID
+            ];
+
+            // Jika belum submit pertama kali
+            if (strlen($author['authorId']) == 0) {
+              // Submit Author First
+              $this->articleAuthorsModel->insert($data['authors']);
+
+              // Lalu, ambil author_id
+              $authorID = $this->articleAuthorsModel->getInsertID();
+            } else {
+              $this->articleAuthorsModel->update($author['authorId'], $data['authors']);
+              $authorID = $author['authorId'];
+            }
           }
 
           $article = $post['article'];
@@ -165,7 +196,8 @@ class SaveSubmit extends BaseController
             'file_name' => $articleID . '-' . $fileID . '-' . $count . '-SP.pdf',
             'original_file_name' => $file->getClientName(),
             'file_size' => $file->getSizeByUnit('kb'),
-            'file_address' => 'uploads/author/' . $articleID . '/' . $fileID . '/' . $articleID . '-' . $fileID . '-' . $count . '-SP.pdf'
+            'file_address' => 'uploads/author/' . $articleID . '/' . $fileID . '/' . $articleID . '-' . $fileID . '-' . $count . '-SP.pdf',
+            'uploader_id' => session()->get('user_id')
           ];
 
           if ($this->articleSupplementaryFilesModel->update($articleSupplementaryFileID, $data['article_supplementary_file'])) {

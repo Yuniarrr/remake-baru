@@ -22,28 +22,45 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr class="text-black">
-                                    <th scope="col">id</th>
+                                    <th scope="col">ID</th>
                                     <th scope="col">MM-DD ASSIGNED</th>
                                     <th scope="col">SEC</th>
                                     <th scope="col">AUTHOR</th>
                                     <th scope="col">TITLE</th>
                                 </tr>
-                                <?php foreach ($article as $a) : ?>
+                                <?php if (isset($articles) && $articles != NULL) : ?>
+                                    <?php foreach ($articles as $article) : ?>
+                                        <tr>
+                                            <td><?= $article['article_id']; ?></td>
+                                            <td><?= $article['date_created']; ?></td>
+                                            <td>ART</td>
+                                            <td>
+                                                <?php for ($i = 0; $i < count($authors[$article['article_id']]); $i++) :  ?>
+                                                    <?php if (count($authors[$article['article_id']]) == 1) : ?>
+                                                        <?= $authors[$article['article_id']][$i]['first_name']; ?>
+                                                    <?php elseif ($i < count($authors[$article['article_id']]) - 1) : ?>
+                                                        <?= $authors[$article['article_id']][$i]['first_name'] . ', '; ?>
+                                                    <?php elseif ($i == count($authors[$article['article_id']]) - 1) : ?>
+                                                        <?= $authors[$article['article_id']][$i]['first_name']; ?>
+                                                    <?php endif; ?>
+                                                <?php endfor; ?>
+                                            </td>
+                                            <td>
+                                                <a href="<?= base_url('/editor/submissionEditing/' . $article['article_id']); ?>"><?= $article['title']; ?></a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                     <tr>
-                                        <td><?= $a['article_id']; ?></td>
-                                        <td><?= $a['date_created']; ?></td>
-                                        <td>ART</td>
-                                        <td><?= $a['first_name']; ?></td>
-                                        <td>
-                                            <a href="<?= base_url(); ?>/editor/submissionEditing/<?= $a['article_id']; ?>">
-                                                <?= $a['title']; ?>
-                                            </a>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td colspan="6" class="endseparator">&nbsp;</td>
                                     </tr>
-                                <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td colspan="6">No Submission</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="endseparator">&nbsp;</td>
+                                    </tr>
+                                <?php endif; ?>
                             </thead>
                         </table>
                     </div>

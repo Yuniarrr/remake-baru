@@ -37,7 +37,15 @@
               <tr>
                 <td width="20%" class="label">Authors</td>
                 <td width="80%">
-                  <?= $article['first_name']; ?>
+                  <?php for ($i = 0; $i < count($authors); $i++) :  ?>
+                    <?php if (count($authors) == 1) : ?>
+                      <?= $authors[$i]['first_name'] . ' ' . $authors[$i]['last_name']; ?>
+                    <?php elseif ($i < count($authors) - 1) : ?>
+                      <?= $authors[$i]['first_name'] . ' ' . $authors[$i]['last_name'] . ', '; ?>
+                    <?php elseif ($i == count($authors) - 1) : ?>
+                      <?= $authors[$i]['first_name'] . ' ' . $authors[$i]['last_name']; ?>
+                    <?php endif; ?>
+                  <?php endfor; ?>
                 </td>
               </tr>
               <tr>
@@ -120,7 +128,6 @@
                 </td>
                 <td width="64%" class="nowrap">
                   <a href="<?= base_url(); ?>/editor/selectReviewer/<?= $article['article_id']; ?>" class="action">Select Reviewer</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a href="<?= base_url(); ?>/editor/submissionRegrets/<?= $article['article_id']; ?>" class="action">View Regrets, Cancels, Previous Rounds</a>
                 </td>
               </tr>
             </table>
@@ -146,7 +153,7 @@
               <table width="100%" class="data">
                 <tr valign="top">
                   <td class="label">Review Form</td>
-                  <td> None / Free Form Review &nbsp;&nbsp;&nbsp;&nbsp; <a class="action" href="https://iptek.its.ac.id/index.php/itj/editor/selectReviewForm/12536/4596">Select Review Form</a>
+                  <td> None / Free Form Review &nbsp;&nbsp;&nbsp;&nbsp;
                   </td>
                 </tr>
                 <tr valign="top">
@@ -156,8 +163,6 @@
                       <tr>
                         <td class="heading" width="25%">Request</td>
                         <td class="heading" width="25%">Underway</td>
-                        <td class="heading" width="25%">Due</td>
-                        <td class="heading" width="25%">Acknowledge</td>
                       </tr>
                       <tr valign="top">
                         <td>
@@ -180,17 +185,6 @@
                             --
                           <?php endif; ?>
                         </td>
-                        <td>
-                          <a href="https://iptek.its.ac.id/index.php/itj/editor/setDueDate/12536/4596">DUE DI ISI?</a>
-                        </td>
-                        <td>
-                          <?php if (isset($review_version)) : ?>
-                            <button>ok</button>
-                          <?php else : ?>
-                            <!-- <button disabled="disabled">ok</button> -->
-                            <img src="https://iptek.its.ac.id/lib/pkp/templates/images/icons/mail_disabled.gif" width="16" height="14" alt="Mail" />
-                          <?php endif; ?>
-                        </td>
                       </tr>
                     </table>
                   </td>
@@ -200,7 +194,25 @@
                     <td class="label">Recommendation</td>
                     <td>
                       <?php if (isset($recommendation)) : ?>
-                        <!-- INI HARUSNYA DIISI RECOMMENDATION -->
+                        <?php
+                        switch ($recommendation['recommendation']) {
+                          case 1:
+                            echo "Accept Submission";
+                            break;
+                          case 2:
+                            echo "Revision Required";
+                            break;
+                          case 3:
+                            echo "Resubmit for Review";
+                            break;
+                          case 4:
+                            echo "Resubmit Elsewhere";
+                            break;
+                          case 5:
+                            echo "Decline Submission";
+                            break;
+                        }
+                        ?>
                       <?php else : ?>
                         None
                       <?php endif; ?>
@@ -224,7 +236,9 @@
                         <tr valign="top">
                           <td>
                             <?php if (isset($reviewer_version)) : ?>
-                              <?= $reviewer_version['file_name']; ?>
+                              <a href="#">
+                                <?= $reviewer_version['file_name']; ?>
+                              </a>
                             <?php else : ?>
                               None
                             <?php endif; ?>
@@ -334,10 +348,10 @@
                 </tr>
             </table>
             <!-- <form method="post" action="https://iptek.its.ac.id/index.php/itj/editor/editorReview" enctype="multipart/form-data"> -->
-            <input type="hidden" name="articleId" value="12536" />
+            <!-- <input type="hidden" name="articleId" value="12536" /> -->
             <table id="table2" class="data" width="100%">
               <tr valign="top">
-                <td width="20%">&nbsp;</td>
+                <td width="20%"></td>
                 <td width="80%">
                   <?php if (isset($decision_editor)) : ?>
                     <?php if (isset($review_version)) : ?>
@@ -360,7 +374,7 @@
                 <td width="20%" class="label">Review Version</td>
                 <td width="50%" class="value">
                   <?php if (isset($review_version)) : ?>
-                    <?php if (isset($notified)) : ?>
+                    <?php if (isset($notified) && (!isset($copyedit_file))) : ?>
                       <input type="radio" name="editorDecisionFile" value="<?= $review_version['article_revision_file_id']; ?>">
                       <a href="/editor/downloadFile/<?= $review_version['file_id'] ?>">
                         <?= $review_version['file_name']; ?>
@@ -379,7 +393,7 @@
                 <td width="20%" class="label">Author Version</td>
                 <td width="80%" class="nodata">
                   <?php if (isset($author_version)) : ?>
-                    <?php if (isset($notified)) : ?>
+                    <?php if (isset($notified) && (!isset($copyedit_file))) : ?>
                       <input type="radio" name="editorDecisionFile" value="<?= $author_version['article_revision_file_id']; ?>">
                       <a href="/editor/downloadFile/<?= $author_version['file_id'] ?>">
                         <?= $author_version['file_name']; ?>
@@ -398,7 +412,7 @@
                 <td width="20%" class="label">Editor Version</td>
                 <td width="80%" class="nodata">
                   <?php if (isset($editor_version)) : ?>
-                    <?php if (isset($notified)) : ?>
+                    <?php if (isset($notified) && (!isset($copyedit_file))) : ?>
                       <input type="radio" name="editorDecisionFile" value="<?= $editor_version['article_revision_file_id']; ?>">
                       <a href="/editor/downloadFile/<?= $editor_version['file_id'] ?>">
                         <?= $editor_version['file_name']; ?>
@@ -412,10 +426,8 @@
                     None
                   <?php endif; ?>
                 </td>
+                </form>
               </tr>
-              <?php if (!empty(session()->getFlashdata('error'))) : ?>
-                <?php echo session()->getFlashdata('error'); ?>
-              <?php endif; ?>
               <tr valign="top">
                 <td class="label">&nbsp;</td>
                 <form action="<?= base_url(); ?>/editor/uploadEditorVersion" method="post" enctype="multipart/form-data">
@@ -427,7 +439,6 @@
                 </form>
               </tr>
             </table>
-            </form>
           </div>
         </div>
       </div>

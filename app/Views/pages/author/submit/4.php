@@ -32,7 +32,7 @@
                                  <td><?= $fileinfo['file_name']; ?></td>
                                  <td><?= $fileinfo['original_file_name']; ?></td>
                                  <td><?= $fileinfo['date_uploaded']; ?></td>
-                                 <td align="right"><a href="<?= base_url(); ?>/download/file/<?= $fileinfo['file_id']; ?>" class="action">Edit</a>&nbsp;|&nbsp;<a href="https://iptek.its.ac.id/index.php/itj/author/deleteSubmitSuppFile/1981?articleId=12541" onclick="return confirm('Are you sure you want to delete this supplementary file?')" class="action">Delete</a></td>
+                                 <td align="right">&nbsp;<a href="<?= base_url(); ?>/author/deleteSubmitSuppFile/<?= $fileinfo['article_supplementary_file_id']; ?>/<?= $article['article_id']; ?>" onclick="return confirm('Are you sure you want to delete this supplementary file?')" class="action">Delete</a></td>
                               </tr>
                            <?php endforeach; ?>
                         <?php else : ?>

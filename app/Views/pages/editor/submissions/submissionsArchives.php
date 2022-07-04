@@ -28,17 +28,17 @@
 
 			<div class="container shape-container d-flex align-items-center">
 				<div class="col px-0">
-
+					<div i class="justify-content-left mb-3">
+						<tbody>
+							<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsUnassigned">UNASSIGNED</a></tr>
+							<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsInReview">IN REVIEW</a></tr>
+							<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsInEditing">IN EDITING</a></tr>
+							<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsArchives">ARCHIVES</a></tr>
+						</tbody>
+					</div><!-- content -->
 
 					<div class="row align-items-center justify-content-left">
-						<div id="content" class="justify-content-left mb-3">
-							<tbody>
-								<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsUnassigned">UNASSIGNED</a></tr>
-								<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsInReview">IN REVIEW</a></tr>
-								<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsInEditing">IN EDITING</a></tr>
-								<tr><a class="mr-3" href="<?= base_url(); ?>/editor/submissions/submissionsArchives">ARCHIVES</a></tr>
-							</tbody>
-						</div><!-- content -->
+
 						<div class="col-sm">
 
 							<div id="submissions">
@@ -53,56 +53,42 @@
 										<td align="right"><a href="javascript:sortSearch('status','1')">Status</a></td>
 									</tr>
 
-									<tr valign="top">
-										<td>12515</td>
-										<td>2022-03-10</td>
-										<td>ART</td>
-										<td>Niani, Siahaan</td>
-										<td><a href="/editor/submissionEditing/12515" class="action">Flexural And Shear Behaviour Of Reinforced Concrete Slab...</a></td>
-										<td align="right">
-											Vol 1, No 1 (2022)
-										</td>
-									</tr>
-
-									<tr valign="top">
-										<td>12892</td>
-										<td>2022-05-10</td>
-										<td>ART</td>
-										<td>Last</td>
-										<td><a href="/editor/submissionEditing/12892" class="action">Pemberitahuan</a></td>
-										<td align="right">
-											Vol 1, No 2 (2022)
-										</td>
-									</tr>
-
-
-									<tr valign="top">
-										<td>13087</td>
-										<td>2022-06-02</td>
-										<td>ART</td>
-										<td>Niani</td>
-										<td><a href="/editor/submissionEditing/13087" class="action">as</a></td>
-										<td align="right">
-											Vol 1, No 2 (2022)
-										</td>
-									</tr>
-
-
-									<tr valign="top">
-										<td>13098</td>
-										<td>2022-06-02</td>
-										<td>ART</td>
-										<td>Niani</td>
-										<td><a href="/editor/submissionEditing/13098" class="action">feed</a></td>
-										<td align="right">
-											Archived&nbsp;&nbsp;<a href="/editor/deleteSubmission/13098" onclick="return confirm('Are you sure you want to permanently delete this submission?')" class="action">Delete</a>
-										</td>
-									</tr>
-
-									<tr>
-										<td colspan="4" align="left">1 - 4 of 4 Items</td>
-										<td colspan="2" align="right"></td>
-									</tr>
+									<?php if (isset($articles) && $articles != NULL ) : ?>
+										<?php foreach ($articles as $article) : ?>
+											<tr valign="top">
+												<td><?= $article['article_id']; ?></td>
+												<td><?= $article['date_submit']; ?></td>
+												<td>ART</td>
+												<td>
+													<?php for ($i = 0; $i < count($authors[$article['article_id']]); $i++) :  ?>
+														<?php if (count($authors[$article['article_id']]) == 1) : ?>
+															<?= $authors[$article['article_id']][$i]['first_name']; ?>
+														<?php elseif ($i < count($authors[$article['article_id']]) - 1) : ?>
+															<?= $authors[$article['article_id']][$i]['first_name'] . ', '; ?>
+														<?php elseif ($i == count($authors[$article['article_id']]) - 1) : ?>
+															<?= $authors[$article['article_id']][$i]['first_name']; ?>
+														<?php endif; ?>
+													<?php endfor; ?>
+												</td>
+												<td>
+													<a href="<?= base_url(); ?>/editor/submissionEditing/<?= $article['article_id']; ?>" class="action"><?= $article['title']; ?></a>
+												</td>
+												<td align="right">
+													Vol <?= $issue[$article['article_id']]['volume']; ?>, No <?= $issue[$article['article_id']]['number']; ?> (<?= $issue[$article['article_id']]['year']; ?>)
+												</td>
+											</tr>
+											<tr>
+												<td colspan="6" class="endseparator">&nbsp;</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php else : ?>
+										<tr>
+											<td colspan="6">No Issue and No Article</td>
+										</tr>
+										<tr>
+											<td colspan="6" class="endseparator">&nbsp;</td>
+										</tr>
+									<?php endif; ?>
 								</table>
 							</div>
 						</div>
